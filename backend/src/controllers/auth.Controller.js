@@ -58,11 +58,7 @@ export const login = async (req, res) => {
       });
     }
 
-    if (password.length < 6) {
-      return res.status(400).json({
-        message: "Password must be at least 6 characters",
-      });
-    }
+    
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({
@@ -88,12 +84,11 @@ export const login = async (req, res) => {
 
     res.status(200).json({
       message: "Logged In Successfully",
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
+      // user: {
+      //   id: user._id,
+      //   name: user.name,
+      //   email: user.email,
+      // },
     });
   } catch (error) {
     console.error("Error in Login Controller", error);
