@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getCurrentUser } from "../services/authServices";
 import { toast } from "sonner";
-
+import Spinner from "../components/Spinner";
 const Profile = () => {
   const [user, setUser] = useState(null);
 
@@ -14,7 +14,7 @@ const Profile = () => {
       };
 
       fetchUser();
-      toast.success("User data fetched successfully");
+      // toast.success("User data fetched successfully");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to fetch user data");
     }
@@ -22,9 +22,7 @@ const Profile = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="loading loading-spinner loading-lg"></div>
-      </div>
+      <Spinner />
     );
   }
 

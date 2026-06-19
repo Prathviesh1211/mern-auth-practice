@@ -35,7 +35,7 @@ const Home = () => {
 
         <div className="grid md:grid-cols-3 gap-6">
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
+          <div className="rounded-2xl border border-white/10 bg-base-200 backdrop-blur-xl p-6">
             <h3 className="font-semibold mb-2">
               Secure Login
             </h3>
@@ -45,7 +45,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
+          <div className="rounded-2xl border border-white/10 bg-base-200 backdrop-blur-xl p-6">
             <h3 className="font-semibold mb-2">
               Protected Routes
             </h3>
@@ -55,7 +55,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
+          <div className="rounded-2xl border border-white/10 bg-base-200 backdrop-blur-xl p-6">
             <h3 className="font-semibold mb-2">
               Modern UI
             </h3>

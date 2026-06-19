@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { loginUser } from "../services/authServices";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +11,7 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
+  const { setUser, setIsAuthenticated } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -23,7 +26,8 @@ const Login = () => {
       const data = await loginUser(formData);
 
       console.log(data);
-
+      setIsAuthenticated(true);
+      setUser(data.user);
       navigate("/profile")
       toast.success("Login Successful");
     } catch (error) {
@@ -34,7 +38,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8">
+      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-base-200 backdrop-blur-xl p-8">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-white">Welcome Back</h1>
           <p className="mt-2 text-sm text-gray-400">Sign in to continue</p>
@@ -65,6 +69,15 @@ const Login = () => {
           >
             Login
           </button>
+          <p className="text-sm text-center text-base-content/70 mt-4">
+  Don't have an account?{" "}
+  <Link
+    to="/signup"
+    className="link link-primary font-medium"
+  >
+    Sign up here
+  </Link>
+</p>
         </form>
       </div>
     </div>
