@@ -8,7 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <div className="min-h-screen bg-neutral-950 relative overflow-hidden">
+    <div className="min-h-screen bg-base-100/70 text-base-content relative overflow-hidden">
       {/* <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl"> */}
       <Navbar />
       <Routes>

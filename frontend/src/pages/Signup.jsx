@@ -52,7 +52,7 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
 
-      <div className="card w-full max-w-md bg-base-200 shadow-xl">
+      <div className="card w-full max-w-md bg-white/5 shadow-xl">
 
         <div className="card-body">
 

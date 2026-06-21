@@ -1,84 +1,118 @@
 import React, { useState } from "react";
-import { loginUser } from "../services/authServices";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+
+import { loginUser } from "../services/authServices";
 import useAuth from "../hooks/useAuth";
-import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
   const { setUser, setIsAuthenticated } = useAuth();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const data = await loginUser(formData);
 
-      console.log(data);
       setIsAuthenticated(true);
       setUser(data.user);
-      navigate("/profile")
+
       toast.success("Login Successful");
+
+      navigate("/profile");
     } catch (error) {
-      console.log(error.response?.data?.message);
-      toast.error(error.response?.data?.message || "Login Failed");
+      toast.error(
+        error.response?.data?.message || "Login Failed"
+      );
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-base-200 backdrop-blur-xl p-8">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-white">Welcome Back</h1>
-          <p className="mt-2 text-sm text-gray-400">Sign in to continue</p>
-        </div>
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4">
+      <div className="card w-full max-w-md bg-white/5 shadow-xl">
+        <div className="card-body">
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            value={formData.email}
-            name="email"
-            onChange={handleChange}
-            placeholder="email"
-            className="input input-bordered w-full bg-white/5 border-white/10"
-          />
+          <div className="text-center mb-4">
+            <h1 className="text-3xl font-bold">
+              Welcome Back
+            </h1>
 
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Password"
-            className="input input-bordered w-full bg-white/5 border-white/10"
-          />
+            <p className="mt-2 text-sm text-base-content/70">
+              Sign in to access your account
+            </p>
+          </div>
 
-          <button
-            type="submit"
-            className="btn rounded-2xl text-xl btn-primary w-full"
-          >
-            Login
-          </button>
+          <form onSubmit={handleSubmit} className="space-y-4">
+
+            <div>
+              <label className="label">
+                <span className="label-text">
+                  Email
+                </span>
+              </label>
+
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="john@example.com"
+                className="input input-bordered w-full"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="label">
+                <span className="label-text">
+                  Password
+                </span>
+              </label>
+
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                className="input input-bordered w-full"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary w-full"
+            >
+              Login
+            </button>
+
+          </form>
+
           <p className="text-sm text-center text-base-content/70 mt-4">
-  Don't have an account?{" "}
-  <Link
-    to="/signup"
-    className="link link-primary font-medium"
-  >
-    Sign up here
-  </Link>
-</p>
-        </form>
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              className="link link-primary font-medium"
+            >
+              Sign up here
+            </Link>
+          </p>
+
+        </div>
       </div>
     </div>
   );
