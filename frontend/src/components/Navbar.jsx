@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { logoutUser } from "../services/authServices";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useTheme from "../hooks/useTheme";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { setUser, setIsAuthenticated,isAuthenticated } = useAuth();
+  const { setUser, setIsAuthenticated, isAuthenticated } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = async () => {
     try {
@@ -23,22 +25,40 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/10 bg-base-100/70 backdrop-blur-xl">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-base-200 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/" className="text-xl font-bold tracking-wide">
           AUTH
         </Link>
 
         <div className="flex items-center gap-4">
-          <Link to="/" className="btn btn-ghost btn-sm">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? "btn btn-primary btn-sm pointer-events-none"
+                : "btn btn-ghost btn-sm"
+            }
+          >
             Home
-          </Link>
+          </NavLink>
+
+          <button className="btn btn-ghost btn-sm" onClick={toggleTheme}>
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
 
           {isAuthenticated ? (
             <>
-              <Link to="/profile" className="btn btn-ghost btn-sm">
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  isActive
+                    ? "btn btn-primary btn-sm pointer-events-none"
+                    : "btn btn-ghost btn-sm"
+                }
+              >
                 Profile
-              </Link>
+              </NavLink>
 
               <button className="btn btn-primary btn-sm" onClick={handleLogout}>
                 Logout
