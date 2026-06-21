@@ -58,7 +58,6 @@ export const login = async (req, res) => {
       });
     }
 
-    
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({
@@ -76,11 +75,11 @@ export const login = async (req, res) => {
 
     const token = generateToken(user._id);
 
-    res.cookie("token",token,{
-      httpOnly:true,
-      secure:false,
-      maxAge:7*24*60*60*1000
-    })
+    res.cookie("token", token, {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.status(200).json({
       message: "Logged In Successfully",
@@ -96,16 +95,16 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = (req,res)=>{
-  res.clearCookie("token")
+export const logout = (req, res) => {
+  res.clearCookie("token");
 
-    res.status(200).json({
-        message:"Logged Out Successfully"
-    });
-}
-
-export const getProfile=async(req,res)=>{
   res.status(200).json({
-    user:req.user
-  })
-}
+    message: "Logged Out Successfully",
+  });
+};
+
+export const getProfile = async (req, res) => {
+  res.status(200).json({
+    user: req.user,
+  });
+};
