@@ -15,6 +15,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://mern-auth-practice.vercel.app",
+      "https://mern-auth-practice-git-main-prathvieshs-projects.vercel.app"
     ],
     credentials: true,
   }),
