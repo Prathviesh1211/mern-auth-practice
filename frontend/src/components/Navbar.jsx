@@ -4,6 +4,7 @@ import { logoutUser } from "../services/authServices";
 import { useNavigate, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useTheme from "../hooks/useTheme";
+import { FiMoon, FiSun } from "react-icons/fi";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -44,7 +45,11 @@ const Navbar = () => {
           </NavLink>
 
           <button className="btn btn-ghost btn-sm" onClick={toggleTheme}>
-            {theme === "light" ? "🌙" : "☀️"}
+            {theme === "light" ? (
+    <FiMoon size={18} />
+  ) : (
+    <FiSun size={18} />
+  )}
           </button>
 
           {isAuthenticated ? (
